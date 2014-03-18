@@ -17,7 +17,7 @@
 		properties-ref="deployProperties" />
 
 	<!-- Activate Spring Data MongoDB repository support -->
-	<mongo:repositories base-package="org.sab.sampleqa.data.repo" />
+	<mongo:repositories base-package="me.mps.dao" />
 
 	<!-- MongoDB host -->
 	<mongo:mongo host="${mongo.host.name}" port="${mongo.host.port}" />
