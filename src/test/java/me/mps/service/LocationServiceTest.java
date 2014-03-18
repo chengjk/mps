@@ -1,6 +1,5 @@
 package me.mps.service;
 
-import org.springframework.transaction.annotation.Transactional;
 
 
 //@RunWith(SpringJUnit4ClassRunner.class)  

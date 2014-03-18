@@ -4,9 +4,10 @@ import java.io.Serializable;
 import java.util.Date;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.geo.Point;
 import org.springframework.data.mongodb.core.mapping.Document;
 @Document
-public class Location implements Serializable {
+public class Position implements Serializable {
 
 	/**
 	 * auto
@@ -23,6 +24,8 @@ public class Location implements Serializable {
 	private double lat;
 
 	private double alt;
+	
+	private Point location;
 
 	private double speed;
 
@@ -32,26 +35,32 @@ public class Location implements Serializable {
 	private int loctype;
 
 	private int locacc;
+	
 
 	public int getId() {
 		return id;
 	}
  
-	public Location(int id, String usercode, double lng, double lat,
-			double alt, double speed, double direction, Date datetime,
-			int loctype, int locacc) {
+	
+
+	public Position(int id, String usercode, double lng, double lat,
+			double alt, Point location, double speed, double direction,
+			Date datetime, int loctype, int locacc) {
 		super();
 		this.id = id;
 		this.usercode = usercode;
 		this.lng = lng;
 		this.lat = lat;
 		this.alt = alt;
+		this.location = location;
 		this.speed = speed;
 		this.direction = direction;
 		this.datetime = datetime;
 		this.loctype = loctype;
 		this.locacc = locacc;
 	}
+
+
 
 	public void setId(int id) {
 		this.id = id;
@@ -87,6 +96,15 @@ public class Location implements Serializable {
 
 	public void setAlt(double alt) {
 		this.alt = alt;
+	}
+	
+
+	public Point getLocation() {
+		return location;
+	}
+
+	public void setLocation(Point location) {
+		this.location = location;
 	}
 
 	public double getSpeed() {
