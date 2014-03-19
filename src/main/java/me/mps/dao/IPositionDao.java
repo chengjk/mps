@@ -17,6 +17,7 @@ public interface IPositionDao extends MongoRepository<Position, String>,
 	
 	Iterable<Position> findByDatetimeBetween(Date b,Date e);
 	
+	List<Position> findByUsercodeAndDatetimeBetween(String usercode,Date b,Date e);
 	List<Position> findByLocationWithin(Box box);
 	List<Position> findByLocationWithin(Circle circle);
 }

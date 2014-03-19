@@ -17,7 +17,7 @@ public class IndexController {
 	
 	@RequestMapping(value="hi")
 	public @ResponseBody Position  hi(){
-		Position l=	new Position(1, "user", 1.1, 1.2, 1.3,new Point(1.1,1.2), 2.2, 2.3, new Date(), 5, 6);
+		Position l=	new Position("user", 1.1, 1.2, 1.3,new Point(1.1,1.2), 2.2, 2.3, new Date(), 5, 6);
 		return l;
 	}
 

@@ -18,7 +18,7 @@ public class PositionService {
 	@Autowired
 	private IPositionDao dao;
 	
-	public int add(Position l){
+	public String add(Position l){
 		l=dao.save(l);
 		return l.getId();
 	}
@@ -29,6 +29,9 @@ public class PositionService {
 	
 	public Iterable<Position> findByTime(Date start,Date end){
 		return dao.findByDatetimeBetween(start, end);
+	}
+	public Iterable<Position> findByUserAndDatetime(String code,Date start,Date end){
+		return dao.findByUsercodeAndDatetimeBetween(code,start, end);
 	}
 
 	/**

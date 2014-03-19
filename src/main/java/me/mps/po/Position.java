@@ -15,7 +15,7 @@ public class Position implements Serializable {
 	private static final long serialVersionUID = -6693293502277478399L;
 
 	@Id
-	private int id;
+	private String id;
 
 	private String usercode;
 
@@ -37,17 +37,16 @@ public class Position implements Serializable {
 	private int locacc;
 	
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
  
 	
 
-	public Position(int id, String usercode, double lng, double lat,
+	public Position( String usercode, double lng, double lat,
 			double alt, Point location, double speed, double direction,
 			Date datetime, int loctype, int locacc) {
 		super();
-		this.id = id;
 		this.usercode = usercode;
 		this.lng = lng;
 		this.lat = lat;
@@ -62,7 +61,7 @@ public class Position implements Serializable {
 
 
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

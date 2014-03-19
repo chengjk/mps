@@ -15,8 +15,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import sun.security.util.BigInt;
-
 @Controller
 @RequestMapping("/location")
 public class PositionController {
@@ -38,14 +36,14 @@ public class PositionController {
 	 */
 	@RequestMapping(value="add")
 	public @ResponseBody Map<String,Object> addlocation(String key,double lng,double lat,double alt,
-			double speed,double direction,String datatime,int loctype,int locacc){
+			double speed,double direction,int loctype,int locacc){
 		Map<String,Object> m=new HashMap<String, Object>();
 		Date date=new Date();
 		Point pt=new Point(lng,lat);
 		Position l=null;
-		int id=-1;
+		String id="";
 		try {
-			l=	new Position(0, key, lng, lat, alt,pt, speed, direction, date, loctype, locacc);
+			l=	new Position(key, lng, lat, alt,pt, speed, direction, date, loctype, locacc);
 			id= ser.add(l);
 			m.put("result", "true");
 		}catch (Exception e) {
@@ -100,42 +98,27 @@ public class PositionController {
 	 */
 	@RequestMapping(value="user")
 	public @ResponseBody Map<String,Object>  userlocaiton(String key,
-			String usercode,BigInt fdt,BigInt edt) throws ParseException{
-		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd");
+			String usercode,String fdt,String edt) throws ParseException{
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddhhmmss");
 		Map<String,Object> m=new HashMap<String, Object>();
-		Iterable<Position> its= ser.findByTime(sdf.parse("20100101"),sdf.parse("21000101"));
+		
 		try {
+			Iterable<Position> its= ser.findByUserAndDatetime(usercode,sdf.parse(fdt),sdf.parse(edt));
 			m.put("result", "true");
+			m.put("list", its);
 		} catch (Exception e) {
 			m.put("result", "false");
 			m.put("error", e.getMessage());
-			m.put("list", its);
 		}
 		return m;
 	}
+	
+	
 	@RequestMapping(value="findall")
 	public @ResponseBody Iterable<Position> findall(){
 		return ser.findAll();
-			
 	}
 	
-	@RequestMapping(value="add/test")
-	public @ResponseBody Map<String,Object> addlocationtest(int id){
-		Map<String,Object> m=new HashMap<String, Object>();
-		Date date=new Date();
-		Position l=null;
-		try {
-			l=	new Position(0, "testkey", id, id, id,new Point(id, id), id,id, date, id, id);
-			l.setId(id);
-			id= ser.add(l);
-			m.put("result", "true");
-			m.put("id", id);
-		}catch (Exception e) {
-			m.put("result", "false");
-			m.put("error",e.getMessage());
-		}
-		return m;
-	}
 	@RequestMapping(value="deleteall")
 	public @ResponseBody Map<String,Object> removeall(){
 		Map<String,Object> m=new HashMap<String, Object>();
@@ -148,6 +131,57 @@ public class PositionController {
 		}
 		return m;
 	}
+	
+	
+	//------------------assists-------------
+	
+	@RequestMapping(value="add/one")
+	public @ResponseBody Map<String,Object> addlocationtest(){
+		int num=1;
+		Map<String,Object> m=new HashMap<String, Object>();
+		Date date=new Date();
+		Position l=null;
+		String id="";
+		try {
+			l=	new Position("testkey", num, num, num,new Point(12, 12), num,num, date, num, num);
+			l.setId(String.valueOf(num));
+			id=ser.add(l);
+			m.put("result", "true");
+			m.put("id", id);
+		}catch (Exception e) {
+			m.put("result", "false");
+			m.put("error",e.getMessage());
+		}
+		return m;
+	}
+	
+	@RequestMapping(value="add/random")
+	public @ResponseBody Map<String,Object> addrandom(int size){
+		Map<String,Object> m=new HashMap<String, Object>();
+		Date date=new Date();
+		double r=0;
+		double lng=0;
+		double lat=0;
+		Point location;
+		Position l=null;
+		try {
+			int i=0;
+			while(i++<size){
+				r=Math.random();
+				lng=20+100*r;
+				lat=60*r;
+				location=new Point(lng,lat);
+				l=new Position("testkey"+i, lng, lat, i, location, i, i, date, 1, 1);
+				ser.add(l);
+			}
+			m.put("result", "true");
+		}catch (Exception e) {
+			m.put("result", "false");
+			m.put("error",e.getMessage());
+		}
+		return m;
+	}
+	
 	
 	
 }
