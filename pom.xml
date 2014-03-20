@@ -2,13 +2,12 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.sab</groupId>
-	<artifactId>sampleqa</artifactId>
+	<groupId>me.mps</groupId>
+	<artifactId>mps</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>Sample Question and Answer Application</name>
-	<description>Sample Question and Answer Application</description>
-
+	<name>My Position Service</name>
+	<description>PositionService on spring mvc and spring security</description>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
