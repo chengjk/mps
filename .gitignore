@@ -1,8 +1,7 @@
-pom.xml
 *.jar
 .svn
 .svn/
 /lib/
 /build/
 /targets/
-/target
+/target/
